@@ -9,13 +9,34 @@ const sequelize = require('../config/connection');
 router.get('/', (req, res) => {
 
 
-  return product.findAll();
+  try{
+    const products=Product.findAll()
+    res.json(products)
+
+  }catch(err){
+    res.json(err)
+    console.log(err)
+
+  }
 });
 
 // get one product
 router.get('/:id', (req, res) => {
   // find a single product by its `id`
   // be sure to include its associated Category and Tag data
+  try{
+    const products=Product.findOne({
+      where:{
+        id:req.params.id
+      }
+    })
+    res.json(products)
+
+  }catch(err){
+    res.json(err)
+    console.log(err)
+    
+  }
 });
 
 // create new product
@@ -97,6 +118,19 @@ router.put('/:id', (req, res) => {
 
 router.delete('/:id', (req, res) => {
   // delete one product by its `id` value
+  try{
+    const products=Product.destroy({
+      where:{
+        id:req.params.id
+      }
+    })
+    res.json(products)
+
+  }catch(err){
+    res.json(err)
+    console.log(err)
+    
+  }
 });
 
 module.exports = router;
