@@ -3,11 +3,11 @@ const { Tag, Product, ProductTag } = require('../../models');
 
 // The `/api/tags` endpoint
 
-router.get('/', async(req, res) => {
+router.get('/', async (req, res) => {
   // find all tags
   // be sure to include its associated Products 
   try{
-    const tags=Tag.findAll()
+    const tags= await Tag.findAll()
     res.json(tags)
 
   }catch(err){
@@ -17,11 +17,11 @@ router.get('/', async(req, res) => {
   }
 });
 
-router.get('/:id', (req, res) => {
+router.get('/:id', async (req, res) => {
   // find one tag by its `id` value
   // be sure to include its associated Products
   try{
-    const tags=Tag.findOne({
+    const tags= await Tag.findOne({
       where:{
         id:req.params.id
       }
@@ -35,10 +35,10 @@ router.get('/:id', (req, res) => {
   }
 });
 
-router.post('/', (req, res) => {
+router.post('/', async (req, res) => {
   // create a new tag
   try{
-    const tags=Tag.create(req.body)
+    const tags= await Tag.create(req.body)
     res.json(tags)
 
   }catch(err){
@@ -48,10 +48,10 @@ router.post('/', (req, res) => {
   }
 });
 
-router.put('/:id', (req, res) => {
+router.put('/:id', async (req, res) => {
   // update a tag by its `id` value
   try{
-    const tags=Tag.update(req.body,{
+    const tags= await Tag.update(req.body,{
       where:{
         id:req.params.id
       }
@@ -65,10 +65,10 @@ router.put('/:id', (req, res) => {
   }
 });
 
-router.delete('/:id', (req, res) => {
+router.delete('/:id', async (req, res) => {
   // delete a tag by its `id` value
   try{
-    const tags=Tag.destroy({
+    const tags= await Tag.destroy({
       where:{
         id:req.params.id
       }
